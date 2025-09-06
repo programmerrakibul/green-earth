@@ -29,6 +29,7 @@ const active = (target) => {
   }
 };
 
+// Spinner
 const spinner = () => {
   cleaner(cardContainer);
 
