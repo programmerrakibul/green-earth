@@ -5,6 +5,9 @@ const getEl = (selector, all = false) => {
     : document.querySelector(selector);
 };
 
+// DOM Selector
+const cardContainer = getEl("#card-container");
+
 // Container Cleaner
 const cleaner = (el) => {
   if (!el) return;
@@ -26,6 +29,20 @@ const active = (target) => {
   }
 };
 
+const spinner = () => {
+  cleaner(cardContainer);
+
+  cardContainer.innerHTML = `
+      <div class="flex justify-center items-center mt-10 col-span-full">
+          <div class="flex flex-row gap-2">
+            <div class="size-3 rounded-full bg-[#15803D] animate-bounce"></div>
+            <div class="size-3 rounded-full bg-[#15803D] animate-bounce [animation-delay:-.3s]"></div>
+            <div class="size-3 rounded-full bg-[#15803D] animate-bounce [animation-delay:-.5s]"></div>
+          </div>
+      </div>
+  `;
+};
+
 // Loading Categories
 (async () => {
   try {
@@ -41,6 +58,7 @@ const active = (target) => {
 
 // Loading Plants by Category
 const loadPlants = async (id, all = true) => {
+  spinner();
   try {
     let url;
 
@@ -81,7 +99,6 @@ const displayCategories = (categories) => {
 
 // Display Plants
 const displayPlants = (plants) => {
-  const cardContainer = getEl("#card-container");
   cleaner(cardContainer);
 
   plants.forEach((plant, i) => {
@@ -94,7 +111,7 @@ const displayPlants = (plants) => {
                 <figure class="rounded-lg overflow-hidden">
                   <img
                     src="${image}"
-                    alt=""
+                    alt="" class="aspect-3/2 object-cover"
                   />
                 </figure>
 
