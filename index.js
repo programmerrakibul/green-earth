@@ -140,4 +140,4 @@ const displayPlants = (plants) => {
   });
 };
 
-loadPlants();
+// loadPlants();
