@@ -14,7 +14,6 @@ const cleaner = (el) => {
 // Add Active
 const active = (target) => {
   const categories = getEl("#category-container li a", true);
-  console.log(categories);
 
   categories.forEach((a) => {
     a.classList.add("bg-transparent", "text-[#1F2937]");
