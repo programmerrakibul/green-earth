@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.bg-left-right {
+  background-position: left, right;
+}
