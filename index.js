@@ -105,7 +105,7 @@ const displayCategories = (categories) => {
       active(e.target);
     });
     li.innerHTML = `
-        <a href="#" class="hover:bg-[#15803D] hover:text-white block px-2.5 py-2 rounded-md opacity-85">${category_name}</a>
+        <a href="#" class="hover:bg-[#15803ccd] hover:text-white block px-2.5 py-2 rounded-md opacity-85">${category_name}</a>
     `;
 
     categoryContainer.append(li);
