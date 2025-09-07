@@ -37,11 +37,87 @@
         <!-- Container -->
         <div class="container mx-auto px-4">
           <div class="flex justify-between items-center gap-3 text-white">
-            <!-- Logo Area -->
-            <a href="./index.html" class="font-bold text-2xl">Green Earth</a>
+            <div class="flex justify-start items-center gap-3 w-full md:w-auto">
+              <!-- Logo Area -->
+              <a
+                href="./index.html"
+                class="font-bold text-lg md:text-2xl mr-auto"
+                >Green Earth</a
+              >
+
+              <!-- Button for Cart Container -->
+              <button
+                type="button"
+                aria-label="Cart Button"
+                class="btn p-0 bg-transparent border-none shadow-none text-white md:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                  />
+                </svg>
+              </button>
+
+              <!-- Dropdown for Navbar Links -->
+              <div class="dropdown dropdown-end md:hidden">
+                <div
+                  tabindex="0"
+                  role="button"
+                  class="btn p-0 bg-transparent border-none shadow-none text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    />
+                  </svg>
+                </div>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content gap-1.5 text-black font-medium menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm bg-gray-200"
+                >
+                  <li>
+                    <a href="#">About</a>
+                  </li>
+                  <li>
+                    <a href="#">Gallery</a>
+                  </li>
+                  <li>
+                    <a href="#">Plant a Tree</a>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      class="flex btn text-[#15803D] bg-[#FACC15] hover:bg-[#facc15ea] border-none px-5 py-3 rounded-full text-base font-medium"
+                    >
+                      Plant a Tree
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
 
             <!-- Navbar links -->
-            <ul class="flex justify-center items-center gap-4 font-medium">
+            <ul
+              class="hidden md:flex justify-center items-center gap-4 font-medium"
+            >
               <li>
                 <a href="#">About</a>
               </li>
@@ -56,7 +132,7 @@
             <!-- Navbar Button -->
             <button
               type="button"
-              class="btn text-[#15803D] bg-[#FACC15] hover:bg-[#facc15ea] border-none px-5 py-3 rounded-full text-base font-medium"
+              class="hidden md:flex btn text-[#15803D] bg-[#FACC15] hover:bg-[#facc15ea] border-none px-5 py-3 rounded-full text-base font-medium"
             >
               Plant a Tree
             </button>
@@ -67,6 +143,7 @@
       <!-- Banner Area -->
       <div
         class="py-20 md:bg-[url('./assets/hero-leaf1.png'),url('./assets/hero-leaf2.png')] bg-[#CFF0DC] bg-left-right bg-no-repeat bg-contain w-full"
+        hidden
       >
         <div class="container mx-auto px-4 text-center space-y-4">
           <h1 class="font-bold text-5xl">Plant a Tree, Grow a Future</h1>
@@ -85,7 +162,7 @@
     </header>
 
     <!-- Main Contents -->
-    <main class="mt-16 space-y-16">
+    <main class="mt-16 space-y-16" hidden>
       <!-- Plants Section -->
       <section>
         <!-- Title -->
@@ -268,7 +345,7 @@
     </main>
 
     <!-- Footer Area Starts Here -->
-    <footer class="bg-[#14532D] text-center p-4">
+    <footer class="bg-[#14532D] text-center p-4" hidden>
       <span class="text-white opacity-95"
         >© 2025 Green Earth. All Rights Reserved.</span
       >
