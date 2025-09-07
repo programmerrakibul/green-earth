@@ -12,6 +12,8 @@ const textToNumber = (el) => {
 
 // DOM Selector
 const cardContainer = getEl("#card-container");
+const cartShowBtn = getEl("#cart-show-btn");
+const cartHideBtn = getEl("#cart-hide-btn");
 
 // Container Cleaner
 const cleaner = (el) => {
@@ -228,6 +230,16 @@ const addToCart = (cartItems) => {
   });
 };
 
+const toggleClasses = (show) => {
+  const plantsSection = getEl("#plants-section");
+  plantsSection.classList.toggle("visible", show);
+  plantsSection.classList.toggle("opacity-100", show);
+  plantsSection.classList.toggle("right-0", show);
+  plantsSection.classList.toggle("invisible", !show);
+  plantsSection.classList.toggle("opacity-0", !show);
+  plantsSection.classList.toggle("-right-[100%]", !show);
+};
+
 // Listeners
 cardContainer.addEventListener("click", (e) => {
   const target = e.target;
@@ -249,5 +261,9 @@ cardContainer.addEventListener("click", (e) => {
     addToCart(cartItems);
   }
 });
+
+cartShowBtn.addEventListener("click", () => toggleClasses(true));
+
+cartHideBtn.addEventListener("click", () => toggleClasses(false));
 
 loadPlants();
