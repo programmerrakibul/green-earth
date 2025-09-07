@@ -30,10 +30,8 @@ const active = (target) => {
     li.classList.remove("bg-[#15803D]", "text-white");
   });
 
-  if ((target.tagName = "A")) {
-    target.classList.add("bg-[#15803D]", "text-white");
-    target.classList.remove("bg-transparent", "text-[#1F2937]");
-  }
+  target.classList.add("bg-[#15803D]", "text-white");
+  target.classList.remove("bg-transparent", "text-[#1F2937]");
 };
 
 // Spinner
@@ -101,22 +99,28 @@ const loadPlantDetails = async (id) => {
 // Displaying Categories
 const displayCategories = (categories) => {
   const categoryContainer = getEl("#category-container");
-  cleaner(categoryContainer);
 
   categories.forEach((category) => {
     const { id, category_name } = category;
     const li = document.createElement("li");
 
     li.textContent = category_name;
+    li.id = id;
     li.className =
-      "hover:bg-[#15803ccd] hover:text-white px-2.5 py-2 rounded-md cursor-pointer";
-
-    li.addEventListener("click", (e) => {
-      loadPlants(id, false);
-      active(e.currentTarget);
-    });
+      "category hover:bg-[#15803ccd] hover:text-white px-2.5 py-2 rounded-md cursor-pointer";
 
     categoryContainer.append(li);
+  });
+
+  categoryContainer.addEventListener("click", (e) => {
+    const li = e.target.closest(".category");
+    if (li) {
+      const id = li.id;
+      active(li);
+      if (id) {
+        loadPlants(id, false);
+      }
+    }
   });
 };
 
