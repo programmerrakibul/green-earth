@@ -21,11 +21,11 @@ const cleaner = (el) => {
 
 // Add Active
 const active = (target) => {
-  const categories = getEl("#category-container li a", true);
+  const categories = getEl("#category-container li", true);
 
-  categories.forEach((a) => {
-    a.classList.add("bg-transparent", "text-[#1F2937]");
-    a.classList.remove("bg-[#15803D]", "text-white");
+  categories.forEach((li) => {
+    li.classList.add("bg-transparent", "text-[#1F2937]");
+    li.classList.remove("bg-[#15803D]", "text-white");
   });
 
   if ((target.tagName = "A")) {
@@ -118,13 +118,13 @@ const displayCategories = (categories) => {
     const { id, category_name } = category;
 
     const li = document.createElement("li");
+    li.textContent = category_name;
+    li.className =
+      "hover:bg-[#15803ccd] hover:text-white px-2.5 py-2 rounded-md cursor-pointer";
     li.addEventListener("click", (e) => {
       loadPlants(id, false);
-      active(e.target);
+      active(e.currentTarget);
     });
-    li.innerHTML = `
-        <a href="#" class="hover:bg-[#15803ccd] hover:text-white block px-2.5 py-2 rounded-md opacity-85">${category_name}</a>
-    `;
 
     categoryContainer.append(li);
   });
