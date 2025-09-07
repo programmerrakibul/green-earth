@@ -21,6 +21,17 @@ const cleaner = (el) => {
   el.innerHTML = "";
 };
 
+// Random ID Generating
+const uniqueID = () => {
+  const alpha = "abcdefghijklmnopqrstuvwxyz";
+  let id = "";
+  for (let i = 0; i < 7; i++) {
+    const randomIn = Math.floor(Math.random() * alpha.length);
+    id += alpha[randomIn];
+  }
+  return id;
+};
+
 // Add Active
 const active = (target) => {
   const categories = getEl("#category-container li", true);
@@ -185,11 +196,13 @@ const displayDetails = (details) => {
   modalBox.showModal();
 };
 
+// Empty Cart Items Array
 let cartItems = [];
 
+// Items removing to cart container
 const removeFromCart = (removeBtn) => {
-  const itemName = removeBtn.parentNode.children[0].children[0].textContent;
-  const filteredItems = cartItems.filter((item) => item.name !== itemName);
+  const itemID = removeBtn.parentNode.id;
+  const filteredItems = cartItems.filter((item) => item.id !== itemID);
   cartItems = filteredItems;
   addToCart(cartItems);
 };
@@ -209,15 +222,15 @@ const addToCart = (cartItems) => {
   cartItems.forEach((item, i) => {
     cartContainer.innerHTML += `
         <!-- Cart Item ${i + 1}  -->
-        <div class="flex justify-between items-center gap-2.5 bg-[#F0FDF4] px-3 py-2 rounded-lg">
+        <div id="${
+          item.id
+        }" class="flex justify-between items-center gap-2.5 bg-[#F0FDF4] px-3 py-2 rounded-lg">
                 <div class="space-y-1">
                   <h5 class="text-sm font-semibold">${item.name}</h5>
                   <span class="opacity-50">$${item.price}</span>
                 </div>
-                <button
-                  type="button" aria-label="Cart Item remove Button"
-                  class="remove_cart_btn btn bg-transparent border-none p-0 shadow-none"
-                >
+                <button type="button" aria-label="Cart Item remove Button"
+                  class="remove_cart_btn btn bg-transparent border-none p-0 shadow-none">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
                   </svg>
@@ -234,6 +247,7 @@ const addToCart = (cartItems) => {
   });
 };
 
+// Toggles Classes
 const toggleClasses = (show) => {
   const plantsSection = getEl("#plants-section");
   plantsSection.classList.toggle("visible", show);
@@ -260,14 +274,18 @@ cardContainer.addEventListener("click", (e) => {
     const name = card.querySelector(".plant_name").textContent;
     const priceEl = card.querySelector(".plant_price");
     const price = textToNumber(priceEl);
-    cartItems.push({ name, price });
+    const id = uniqueID();
+
+    cartItems.push({ id, name, price });
 
     addToCart(cartItems);
   }
 });
 
+// Cart Show
 cartShowBtn.addEventListener("click", () => toggleClasses(true));
 
+// Cart Hide
 cartHideBtn.addEventListener("click", () => toggleClasses(false));
 
 loadPlants();
