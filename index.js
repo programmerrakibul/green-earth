@@ -78,6 +78,19 @@ const loadPlants = async (id, all = true) => {
   }
 };
 
+// Fetching Plant Details by id
+const loadPlantDetails = async (id) => {
+  try {
+    const url = `https://openapi.programming-hero.com/api/plant/${id}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const details = data.plants;
+    displayDetails(details);
+  } catch (error) {
+    console.log("Error Fetching Plant Details: ", error);
+  }
+};
+
 // Displaying Categories
 const displayCategories = (categories) => {
   const categoryContainer = getEl("#category-container");
@@ -85,6 +98,7 @@ const displayCategories = (categories) => {
 
   categories.forEach((category) => {
     const { id, category_name } = category;
+
     const li = document.createElement("li");
     li.addEventListener("click", (e) => {
       loadPlants(id, false);
@@ -103,11 +117,11 @@ const displayPlants = (plants) => {
   cleaner(cardContainer);
 
   plants.forEach((plant, i) => {
-    const { image, name, description, category, price } = plant;
+    const { id, image, name, description, category, price } = plant;
 
     cardContainer.innerHTML += `
         <!-- Card ${i + 1} -->
-              <div class="bg-white p-4 rounded-lg shadow-sm space-y-3">
+              <div id="${id}" class="plant_card bg-white p-4 rounded-lg shadow-sm space-y-3">
                 <!-- Image -->
                 <figure class="rounded-lg overflow-hidden">
                   <img
@@ -118,20 +132,20 @@ const displayPlants = (plants) => {
 
                 <!-- Details -->
                 <div class="space-y-2">
-                  <h5 class="text-sm font-semibold">${name}</h5>
+                  <h5 class="plant_name text-sm font-semibold">${name}</h5>
                   <p class="text-xs opacity-80">${description}</p>
                   <div class="flex justify-between items-center">
                     <span
                       class="px-3 py-1 bg-[#DCFCE7] text-[#15803D] font-medium text-sm font-['Geist'] rounded-full"
                       >${category}</span>
-                    <span class="font-semibold text-sm">৳<span>${price}</span></span>
+                    <span class="font-semibold text-sm">৳<span class="plant_price">${price}</span></span>
                   </div>
                 </div>
 
                 <!-- Cart Button -->
                 <button
                   type="button"
-                  class="btn btn-block border-none rounded-full bg-[#15803ce3] hover:bg-[#15803D] text-base font-medium text-white"
+                  class="add_cart_btn btn btn-block border-none rounded-full bg-[#15803ce3] hover:bg-[#15803D] text-base font-medium text-white"
                 >
                   Add to Cart
                 </button>
@@ -140,4 +154,33 @@ const displayPlants = (plants) => {
   });
 };
 
-// loadPlants();
+// Display Plant Details
+const displayDetails = (details) => {
+  const modalBox = getEl("#plant_modal");
+  const detailsBox = getEl("#plant-details");
+  const { image, name, description, category, price } = details;
+  cleaner(detailsBox);
+
+  detailsBox.innerHTML = `
+      <h4 class="font-bold text-2xl">${name}</h4>
+      <img src="${image}" class="aspect-3/2 object-cover rounded-lg"/>
+      <span class="block"><strong>Category: </strong>${category}</span>
+      <span class="block"><strong>Price: </strong>$${price}</span>
+      <p><strong>Description: </strong>${description}</p>
+      
+  `;
+
+  modalBox.showModal();
+};
+
+// Listeners
+cardContainer.addEventListener("click", (e) => {
+  const target = e.target;
+  const plantNameEl = target.closest(".plant_name");
+  const id = target.closest(".plant_card").id;
+  if (plantNameEl) {
+    loadPlantDetails(id);
+  }
+});
+
+loadPlants();
