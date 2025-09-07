@@ -28,8 +28,16 @@
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body
-    class="text-[#1F2937] bg-[#F0FDF4] font-['Inter'] font-normal text-base min-h-dvh"
+    class="text-[#1F2937] bg-[#F0FDF4] font-['Inter'] font-normal text-base min-h-dvh relative"
   >
+    <!-- Loader -->
+    <div
+      id="page-loader"
+      class="bg-[#F0FDF4] z-50 flex justify-center items-center w-full h-screen absolute"
+    >
+      <div class="rounded-full size-16 bg-[#15803ceb] animate-ping"></div>
+    </div>
+
     <!-- Header Area Starts Here -->
     <header>
       <!-- Navbar Area -->
