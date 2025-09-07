@@ -34,16 +34,6 @@ const active = (target) => {
   }
 };
 
-// Page Loader
-const loader = (poor) => {
-  const loaderContainer = getEl("#page-loader");
-  if (poor) {
-    loaderContainer.classList.replace("hidden", "flex");
-  } else {
-    loaderContainer.classList.replace("flex", "hidden");
-  }
-};
-
 // Spinner
 const spinner = () => {
   cleaner(cardContainer);
@@ -61,7 +51,6 @@ const spinner = () => {
 
 // Loading Categories
 (async () => {
-  loader(true);
   try {
     const url = "https://openapi.programming-hero.com/api/categories";
     const response = await fetch(url);
@@ -70,8 +59,6 @@ const spinner = () => {
     displayCategories(categories);
   } catch (error) {
     console.log("Error Fetching Categories: ", error);
-  } finally {
-    loader(false);
   }
 })();
 
@@ -116,11 +103,12 @@ const displayCategories = (categories) => {
 
   categories.forEach((category) => {
     const { id, category_name } = category;
-
     const li = document.createElement("li");
+
     li.textContent = category_name;
     li.className =
       "hover:bg-[#15803ccd] hover:text-white px-2.5 py-2 rounded-md cursor-pointer";
+
     li.addEventListener("click", (e) => {
       loadPlants(id, false);
       active(e.currentTarget);
