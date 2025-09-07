@@ -5,6 +5,11 @@ const getEl = (selector, all = false) => {
     : document.querySelector(selector);
 };
 
+const textToNumber = (el) => {
+  const num = Number(el.textContent);
+  return num;
+};
+
 // DOM Selector
 const cardContainer = getEl("#card-container");
 
@@ -173,13 +178,74 @@ const displayDetails = (details) => {
   modalBox.showModal();
 };
 
+let cartItems = [];
+
+const removeFromCart = (removeBtn) => {
+  const itemName = removeBtn.parentNode.children[0].children[0].textContent;
+  const filteredItems = cartItems.filter((item) => item.name !== itemName);
+  cartItems = filteredItems;
+  addToCart(cartItems);
+};
+
+// Items adding to cart container
+const addToCart = (cartItems) => {
+  const cartContainer = getEl("#cart-container");
+  const totalPriceEl = getEl("#cart-total-price");
+  cleaner(cartContainer);
+
+  const totalPrice = cartItems.reduce(
+    (acc, itemPrice) => acc + itemPrice.price,
+    0
+  );
+  totalPriceEl.textContent = totalPrice.toFixed(2);
+
+  cartItems.forEach((item, i) => {
+    cartContainer.innerHTML += `
+        <!-- Cart Item ${i + 1}  -->
+        <div class="flex justify-between items-center gap-2.5 bg-[#F0FDF4] px-3 py-2 rounded-lg">
+                <div class="space-y-1">
+                  <h5 class="text-sm font-semibold">${item.name}</h5>
+                  <span class="opacity-50">$${item.price}</span>
+                </div>
+                <button
+                  type="button" aria-label="Cart Item remove Button"
+                  class="remove_cart_btn btn bg-transparent border-none p-0 shadow-none"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
+    `;
+  });
+
+  cartContainer.addEventListener("click", (e) => {
+    const removeBtn = e.target.closest(".remove_cart_btn");
+    if (removeBtn) {
+      removeFromCart(removeBtn);
+    }
+  });
+};
+
 // Listeners
 cardContainer.addEventListener("click", (e) => {
   const target = e.target;
   const plantNameEl = target.closest(".plant_name");
+  const addCartBtn = target.closest(".add_cart_btn");
   const id = target.closest(".plant_card").id;
+
   if (plantNameEl) {
     loadPlantDetails(id);
+  }
+
+  if (addCartBtn) {
+    const card = target.closest(".plant_card");
+    const name = card.querySelector(".plant_name").textContent;
+    const priceEl = card.querySelector(".plant_price");
+    const price = textToNumber(priceEl);
+    cartItems.push({ name, price });
+
+    addToCart(cartItems);
   }
 });
 
