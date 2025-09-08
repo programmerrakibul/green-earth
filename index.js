@@ -156,7 +156,7 @@ const displayPlants = (plants) => {
                 <!-- Details -->
                 <div class="space-y-2">
                   <h5 class="plant_name text-sm font-semibold">${name}</h5>
-                  <p class="text-xs opacity-80 max-h-12 overflow-hidden text-ellipsis line-clamp-2">${description}</p>
+                  <p class="text-xs opacity-80 max-h-8 overflow-hidden text-ellipsis line-clamp-2">${description}</p>
                   <div class="flex justify-between items-center">
                     <span
                       class="px-3 py-1 bg-[#DCFCE7] text-[#15803D] font-medium text-sm font-['Geist'] rounded-full"
