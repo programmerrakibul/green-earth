@@ -277,7 +277,7 @@ cardContainer.addEventListener("click", (e) => {
     const id = uniqueID();
 
     cartItems.push({ id, name, price });
-
+    alert(`${name} has been added to cart`);
     addToCart(cartItems);
   }
 });
