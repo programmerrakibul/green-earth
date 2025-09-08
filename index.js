@@ -6,7 +6,7 @@ const getEl = (selector, all = false) => {
 };
 
 const textToNumber = (el) => {
-  const num = Number(el.textContent);
+  const num = Number(el.textContent.trim());
   return num;
 };
 
