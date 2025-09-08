@@ -190,7 +190,6 @@ const displayDetails = (details) => {
       <span class="block"><strong>Category: </strong>${category}</span>
       <span class="block"><strong>Price: </strong>$${price}</span>
       <p><strong>Description: </strong>${description}</p>
-      
   `;
 
   modalBox.showModal();
