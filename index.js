@@ -116,7 +116,7 @@ const displayCategories = (categories) => {
     const li = document.createElement("li");
 
     li.textContent = category_name;
-    li.id = id;
+    li.id = `category-${id}`;
     li.className =
       "category hover:bg-[#15803ccd] hover:text-white px-2.5 py-2 rounded-md cursor-pointer";
 
@@ -129,7 +129,7 @@ const displayCategories = (categories) => {
       const id = li.id;
       active(li);
       if (id) {
-        loadPlants(id, false);
+        loadPlants(id[id.length - 1], false);
       }
     }
   });
@@ -144,7 +144,7 @@ const displayPlants = (plants) => {
 
     cardContainer.innerHTML += `
         <!-- Card ${i + 1} -->
-              <div id="${id}" class="plant_card bg-white p-4 rounded-lg shadow-sm space-y-3">
+              <div id="card-item-${id}" class="plant_card bg-white p-4 rounded-lg shadow-sm space-y-3">
                 <!-- Image -->
                 <figure class="rounded-lg overflow-hidden">
                   <img
@@ -265,7 +265,7 @@ cardContainer.addEventListener("click", (e) => {
   const id = target.closest(".plant_card").id;
 
   if (plantNameEl) {
-    loadPlantDetails(id);
+    loadPlantDetails(id[id.length - 1]);
   }
 
   if (addCartBtn) {
