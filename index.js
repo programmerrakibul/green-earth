@@ -186,7 +186,7 @@ const displayDetails = (details) => {
 
   detailsBox.innerHTML = `
       <h4 class="font-bold text-2xl">${name}</h4>
-      <img src="${image}" class="aspect-3/2 object-cover rounded-lg"/>
+      <img src="${image}" class="rounded-lg"/>
       <span class="block"><strong>Category: </strong>${category}</span>
       <span class="block"><strong>Price: </strong>$${price}</span>
       <p><strong>Description: </strong>${description}</p>
