@@ -144,7 +144,7 @@ const displayPlants = (plants) => {
 
     cardContainer.innerHTML += `
         <!-- Card ${i + 1} -->
-              <div class="plant_card bg-white p-4 rounded-lg shadow-sm space-y-3">
+              <div id="${id}" class="plant_card bg-white p-4 rounded-lg shadow-sm space-y-3">
                 <!-- Image -->
                 <figure class="rounded-lg overflow-hidden">
                   <img
