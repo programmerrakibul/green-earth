@@ -226,7 +226,7 @@ const addToCart = (cartItems) => {
         }" class="flex justify-between items-center gap-2.5 bg-[#F0FDF4] px-3 py-2 rounded-lg">
                 <div class="space-y-1">
                   <h5 class="text-sm font-semibold">${item.name}</h5>
-                  <span class="opacity-50">৳${item.price}</span>
+                  <span class="opacity-50">৳${item.price} × 1</span>
                 </div>
                 <button type="button" aria-label="Cart Item remove Button"
                   class="remove_cart_btn btn bg-transparent border-none p-0 shadow-none">
