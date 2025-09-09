@@ -160,7 +160,7 @@ const displayPlants = (plants) => {
                 <figure class="rounded-lg overflow-hidden">
                   <img
                     src="${image}"
-                    alt="${name} Image" class="aspect-3/2 object-cover"
+                    alt="${name} Image" class="aspect-3/2 object-cover w-full"
                   />
                 </figure>
 
