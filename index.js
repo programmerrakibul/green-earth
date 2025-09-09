@@ -21,6 +21,7 @@ const idSlicer = (fullId, len) => {
 
 // DOM Selector
 const cardContainer = getEl("#card-container");
+const cartContainer = getEl("#cart-container");
 const cartShowBtn = getEl("#cart-show-btn");
 const cartHideBtn = getEl("#cart-hide-btn");
 
@@ -28,17 +29,6 @@ const cartHideBtn = getEl("#cart-hide-btn");
 const cleaner = (el) => {
   if (!el) return;
   el.innerHTML = "";
-};
-
-// Random ID Generating
-const uniqueID = () => {
-  const alpha = "abcdefghijklmnopqrstuvwxyz";
-  let id = "";
-  for (let i = 0; i < 7; i++) {
-    const randomIn = Math.floor(Math.random() * alpha.length);
-    id += alpha[randomIn];
-  }
-  return id;
 };
 
 // Add Active
@@ -210,32 +200,36 @@ let cartItems = [];
 // Items removing to cart container
 const removeFromCart = (removeBtn) => {
   const itemID = removeBtn.parentNode.id;
-  const filteredItems = cartItems.filter((item) => item.id !== itemID);
-  cartItems = filteredItems;
+  const found = cartItems.findIndex((item) => item.cartId === itemID);
+
+  if (found !== -1) {
+    if (cartItems[found].quantity < 2) {
+      cartItems.splice(found, 1);
+    } else {
+      cartItems[found].quantity -= 1;
+    }
+  }
+
   addToCart(cartItems);
 };
 
 // Items adding to cart container
 const addToCart = (cartItems) => {
-  const cartContainer = getEl("#cart-container");
   const totalPriceEl = getEl("#cart-total-price");
   cleaner(cartContainer);
 
   const totalPrice = cartItems.reduce(
-    (acc, itemPrice) => acc + itemPrice.price,
+    (acc, item) => acc + item.price * item.quantity,
     0
   );
   totalPriceEl.textContent = totalPrice.toFixed(2);
 
-  cartItems.forEach((item, i) => {
+  cartItems.forEach((item) => {
     cartContainer.innerHTML += `
-        <!-- Cart Item ${i + 1}  -->
-        <div id="${
-          item.id
-        }" class="flex justify-between items-center gap-2.5 bg-[#F0FDF4] px-3 py-2 rounded-lg">
+        <div id="${item.cartId}" class="flex justify-between items-center gap-2.5 bg-[#F0FDF4] px-3 py-2 rounded-lg">
                 <div class="space-y-1">
                   <h5 class="text-sm font-semibold">${item.name}</h5>
-                  <span class="opacity-50">৳${item.price} × 1</span>
+                  <span class="opacity-50">৳${item.price} × ${item.quantity}</span>
                 </div>
                 <button type="button" aria-label="Cart Item remove Button"
                   class="remove_cart_btn btn bg-transparent border-none p-0 shadow-none">
@@ -245,13 +239,6 @@ const addToCart = (cartItems) => {
                 </button>
               </div>
     `;
-  });
-
-  cartContainer.addEventListener("click", (e) => {
-    const removeBtn = e.target.closest(".remove_cart_btn");
-    if (removeBtn) {
-      removeFromCart(removeBtn);
-    }
   });
 };
 
@@ -283,11 +270,24 @@ cardContainer.addEventListener("click", (e) => {
     const name = card.querySelector(".plant_name").textContent;
     const priceEl = card.querySelector(".plant_price");
     const price = textToNumber(priceEl);
-    const id = uniqueID();
+    const cartId = `cart-${idSlicer(id, 4)}`;
 
-    cartItems.push({ id, name, price });
+    if (cartItems.some((item) => item.cartId === cartId)) {
+      const filteredItems = cartItems.filter((item) => item.cartId === cartId);
+      filteredItems[0].quantity += 1;
+    } else {
+      cartItems.push({ cartId, name, price, quantity: 1 });
+    }
+
     alert(`${name} has been added to cart`);
     addToCart(cartItems);
+  }
+});
+
+cartContainer.addEventListener("click", (e) => {
+  const removeBtn = e.target.closest(".remove_cart_btn");
+  if (removeBtn) {
+    removeFromCart(removeBtn);
   }
 });
 
