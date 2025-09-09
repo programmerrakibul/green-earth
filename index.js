@@ -156,7 +156,7 @@ const displayPlants = (plants) => {
 
                 <!-- Details -->
                 <div class="space-y-2">
-                  <h5 class="plant_name text-sm font-semibold">${name}</h5>
+                  <h5 class="plant_name text-sm font-semibold py-1 inline-block cursor-pointer">${name}</h5>
                   <p class="text-xs opacity-80 max-h-8 overflow-hidden text-ellipsis line-clamp-2">${description}</p>
                   <div class="flex justify-between items-center">
                     <span
