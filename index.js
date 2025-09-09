@@ -5,6 +5,8 @@ const getEl = (selector, all = false) => {
     : document.querySelector(selector);
 };
 
+// Removes unwanted spacing
+// Converts string to number
 const textToNumber = (el) => {
   const num = Number(el.textContent.trim());
   return num;
@@ -19,7 +21,7 @@ const idSlicer = (fullId, len) => {
   return shortId;
 };
 
-// DOM Selector
+// DOM Selectors
 const cardContainer = getEl("#card-container");
 const cartContainer = getEl("#cart-container");
 const cartShowBtn = getEl("#cart-show-btn");
