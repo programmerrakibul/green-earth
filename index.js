@@ -136,7 +136,6 @@ const displayCategories = (categories) => {
     const li = e.target.closest(".category ");
 
     if (li) {
-      console.log(li);
       const id = li.id;
       active(li);
       if (id) {
@@ -211,8 +210,8 @@ let cartItems = [];
 
 // Items removing to cart container
 const removeFromCart = (removeBtn) => {
-  const itemID = removeBtn.parentNode.id;
-  const found = cartItems.findIndex((item) => item.cartId === itemID);
+  const itemName = removeBtn.previousElementSibling.children[0].textContent;
+  const found = cartItems.findIndex((item) => item.name === itemName);
 
   if (found !== -1) {
     if (cartItems[found].quantity < 2) {
@@ -236,12 +235,15 @@ const addToCart = (cartItems) => {
   );
   totalPriceEl.textContent = totalPrice.toFixed(2);
 
-  cartItems.forEach((item) => {
+  cartItems.forEach((item, i) => {
+    const { name, price, quantity } = item;
+
     cartContainer.innerHTML += `
-        <div id="${item.cartId}" class="flex justify-between items-center gap-2.5 bg-[#F0FDF4] px-3 py-2 rounded-lg">
+        <!-- Cart Item - ${i + 1} -->
+        <div class="flex justify-between items-center gap-2.5 bg-[#F0FDF4] px-3 py-2 rounded-lg">
                 <div class="space-y-1">
-                  <h5 class="text-sm font-semibold">${item.name}</h5>
-                  <span class="opacity-50">৳${item.price} × ${item.quantity}</span>
+                  <h5 class="text-sm font-semibold">${name}</h5>
+                  <span class="opacity-50">৳${price} × ${quantity}</span>
                 </div>
                 <button type="button" aria-label="Cart Item remove Button"
                   class="remove_cart_btn btn bg-transparent border-none p-0 shadow-none">
@@ -285,13 +287,12 @@ cardContainer.addEventListener("click", (e) => {
     const name = card.querySelector(".plant_name").textContent;
     const priceEl = card.querySelector(".plant_price");
     const price = textToNumber(priceEl);
-    const cartId = `cart-${idSlicer(id, 4)}`;
 
-    if (cartItems.some((item) => item.cartId === cartId)) {
-      const filteredItems = cartItems.filter((item) => item.cartId === cartId);
+    if (cartItems.some((item) => item.name === name)) {
+      const filteredItems = cartItems.filter((item) => item.name === name);
       filteredItems[0].quantity += 1;
     } else {
-      cartItems.push({ cartId, name, price, quantity: 1 });
+      cartItems.push({ name, price, quantity: 1 });
     }
 
     alert(`${name} has been added to cart`);
