@@ -33,17 +33,25 @@ const cleaner = (el) => {
   el.innerHTML = "";
 };
 
+// Class replacer
+const replaceClasses = (el, classes) => {
+  el.classList.add(...classes[0]);
+  el.classList.remove(...classes[1]);
+};
+
 // Add Active
 const active = (target) => {
   const categories = getEl("#category-container li", true);
 
   categories.forEach((li) => {
-    li.classList.add("hover:bg-[#68ff9fcc]");
-    li.classList.remove("bg-[#15803D]", "text-white");
+    const addClasses = ["hover:bg-[#68ff9fcc]"];
+    const removeClasses = ["bg-[#15803D]", "text-white"];
+    replaceClasses(li, [addClasses, removeClasses]);
   });
 
-  target.classList.add("bg-[#15803D]", "text-white");
-  target.classList.remove("hover:bg-[#68ff9fcc]");
+  const addClasses = ["bg-[#15803D]", "text-white"];
+  const removeClasses = ["hover:bg-[#68ff9fcc]"];
+  replaceClasses(target, [addClasses, removeClasses]);
 };
 
 // Spinner
@@ -125,8 +133,10 @@ const displayCategories = (categories) => {
   });
 
   categoryContainer.addEventListener("click", (e) => {
-    const li = e.target.closest(".category");
+    const li = e.target.closest(".category ");
+
     if (li) {
+      console.log(li);
       const id = li.id;
       active(li);
       if (id) {
@@ -246,14 +256,15 @@ const addToCart = (cartItems) => {
 
 // Toggles Classes
 const toggleClasses = (show) => {
-  const plantsSection = getEl("#plants-section");
-
+  const cartSection = getEl("#cart-section");
   if (show) {
-    plantsSection.classList.add("visible", "opacity-100", "right-0");
-    plantsSection.classList.remove("invisible", "opacity-0", "-right-[100%]");
+    const addClasses = ["visible", "opacity-100", "right-0"];
+    const removeClasses = ["invisible", "opacity-0", "-right-[100%]"];
+    replaceClasses(cartSection, [addClasses, removeClasses]);
   } else {
-    plantsSection.classList.add("invisible", "opacity-0", "-right-[100%]");
-    plantsSection.classList.remove("visible", "opacity-100", "right-0");
+    const addClasses = ["invisible", "opacity-0", "-right-[100%]"];
+    const removeClasses = ["visible", "opacity-100", "right-0"];
+    replaceClasses(cartSection, [addClasses, removeClasses]);
   }
 };
 
