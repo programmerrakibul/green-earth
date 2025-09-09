@@ -36,12 +36,12 @@ const active = (target) => {
   const categories = getEl("#category-container li", true);
 
   categories.forEach((li) => {
-    li.classList.add("bg-transparent", "text-[#1F2937]");
+    li.classList.add("hover:bg-[#68ff9fcc]");
     li.classList.remove("bg-[#15803D]", "text-white");
   });
 
   target.classList.add("bg-[#15803D]", "text-white");
-  target.classList.remove("bg-transparent", "text-[#1F2937]");
+  target.classList.remove("hover:bg-[#68ff9fcc]");
 };
 
 // Spinner
@@ -117,7 +117,7 @@ const displayCategories = (categories) => {
     li.textContent = category_name;
     li.id = `category-${id}`;
     li.className =
-      "category hover:bg-[#15803ccd] hover:text-white px-2.5 py-2 rounded-md cursor-pointer";
+      "category hover:bg-[#68ff9fcc] px-2.5 py-2 rounded-md cursor-pointer";
 
     categoryContainer.append(li);
   });
