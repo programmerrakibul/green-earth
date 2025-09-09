@@ -245,12 +245,14 @@ const addToCart = (cartItems) => {
 // Toggles Classes
 const toggleClasses = (show) => {
   const plantsSection = getEl("#plants-section");
-  plantsSection.classList.toggle("visible", show);
-  plantsSection.classList.toggle("opacity-100", show);
-  plantsSection.classList.toggle("right-0", show);
-  plantsSection.classList.toggle("invisible", !show);
-  plantsSection.classList.toggle("opacity-0", !show);
-  plantsSection.classList.toggle("-right-[100%]", !show);
+
+  if (show) {
+    plantsSection.classList.add("visible", "opacity-100", "right-0");
+    plantsSection.classList.remove("invisible", "opacity-0", "-right-[100%]");
+  } else {
+    plantsSection.classList.add("invisible", "opacity-0", "-right-[100%]");
+    plantsSection.classList.remove("visible", "opacity-100", "right-0");
+  }
 };
 
 // Listeners
